@@ -1,0 +1,39 @@
+edition: 3.0.0
+name: resume-analyzer
+access: "default"
+
+vars:
+  region: cn-hangzhou
+
+services:
+  backend:
+    component: fc3
+    props:
+      region: ${vars.region}
+      functionName: resume-analyzer
+      runtime: custom-container
+      cpu: 1
+      memorySize: 512
+      diskSize: 512
+      instanceConcurrency: 10
+      timeout: 120
+      customContainerConfig:
+        image: "registry.${vars.region}.aliyuncs.com/${env.REGISTRY_NAMESPACE}/resume-analyzer:latest"
+        port: 9000
+      environmentVariables:
+        AI_API_KEY: ${env.AI_API_KEY}
+        AI_BASE_URL: ${env.AI_BASE_URL}
+        AI_MODEL: ${env.AI_MODEL}
+        CACHE_ENABLED: ${env.CACHE_ENABLED}
+        REDIS_URL: ${env.REDIS_URL}
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          triggerConfig:
+            authType: anonymous
+            methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS

@@ -4,7 +4,7 @@
 
 ## 在线预览
 
-**http://cv.sonnet.skin**
+**http://cv1.sonnet.skin**
 
 ![系统截图](docs/screenshot.png)
 
